@@ -12,9 +12,12 @@ app.listen(port, function (req) {
 
 app.use((req, res, next) => {
     // 跨域设置
-    res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:8081');
     res.header("Access-Control-Allow-Credentials", true);
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.header("Access-Control-Allow-Headers", "Content-Type,Access-Token");
+    res.header("Access-Control-Expose-Headers", "*");
+
     if (req.method == 'OPTIONS') {
         res.sendStatus(200);
     } else {

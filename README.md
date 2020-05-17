@@ -9,8 +9,11 @@ yarn install
 ```
 yarn client
 ```
+
 ### 启动数据库（mongoDB）mongodb://localhost/PERSONAL_SPACE
+```
 mongo
+```
 
 ### 新建一个终端窗口，服务端启动 http://localhost:3000/#/
 ```
@@ -18,10 +21,11 @@ yarn server
 ```
 
 ### 技术栈
-
-client: vue-cli + vue2.0 + vuex + vue-router + axios + element-ui
-server: nodejs
-db: mongodb
+```
+1、client: vue-cli + vue2.0 + vuex + vue-router + axios + element-ui
+2、server: nodejs
+3、db: mongodb
+```
 
 
 
