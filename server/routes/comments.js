@@ -34,7 +34,7 @@ function standardComments(comments,res) {
             var h = Math.floor(desc%(24*3600*1000)/(3600*1000));
             var m = Math.floor(desc%(24*3600*1000)%(3600*1000)/(60*1000));
             item["createAt"]=d?d+"天前":(h?h+"小时前":(m?m+"分钟前":"刚刚"));
-            item["RootID"]=comments[i].RootID;
+            item["rootID"]=comments[i].rootID;
             item["PName"]=puser?puser.name:"";
             item["expand"]=false;
             item['likeSelected']=false;
@@ -68,8 +68,8 @@ router.get('/comments', function(req, res, next) {
 //根据rootID查询所有回复数据
 // http://127.0.0.1:3000/comments/replay?r=598c3e6106ffe54f89928b34
 router.get('/replay', function(req, res, next) {
-    var RootID=req.query.r;
-    Comments.fetchWithRootID(RootID,function(err, comments) {
+    var rootID=req.query.r;
+    Comments.fetchWithrootID(rootID,function(err, comments) {
         if(err) {
             console.log(err);
         }
@@ -81,7 +81,6 @@ router.get('/replay', function(req, res, next) {
 router.post('/insert', function(req, res, next) {
     var questionID=req.query.questionID;
     var emailPhone=req.query.emailPhone;
-    var name=req.query.name;
     var content=req.query.content;
     Comments.insert({
         questionID: questionID,
@@ -90,8 +89,8 @@ router.post('/insert', function(req, res, next) {
         like:0,
         dislike:0,
         PID:'',
-        RootID:''
-        },function(err,comments){
+        rootID:''
+    }, function(err,comments){
             //更新问题评论条数
             Questions.findById(questionID,function(err,question){
             let comment=question.comment+1;
@@ -111,7 +110,7 @@ router.post('/replayInsert', function(req, res, next) {
     var emailPhone=req.query.emailPhone;
     var content=req.query.content;
     var PID=req.query.PID;
-    var RootID=req.query.RootID;
+    var rootID=req.query.rootID;
     Comments.insert({
         questionID: questionID,
         emailPhone: emailPhone,
@@ -119,7 +118,7 @@ router.post('/replayInsert', function(req, res, next) {
         like:0,
         dislike:0,
         PID:PID,
-        RootID:RootID
+        rootID:rootID
     },function(err,comments) {
         if(err) {
             res.json({"success":false,"error":err});

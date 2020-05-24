@@ -8,7 +8,7 @@ var CommentSchema = new mongoose.Schema({
     like: Number,
     dislike: Number,
     PID: String,
-    RootID: String,
+    rootID: String,
     meta: {
         createAt: {
             type: Date,
@@ -40,19 +40,19 @@ CommentSchema.statics = {
     // 大于或等于  {<key>:{$gte:<value>}}
     // 不等于  {<key>:{$ne:<value>}}
     // $or或   $and与(也可省略)   $nor非
-    fetchWithRootID: function(RootID,cb) { //查询回复详情
+    fetchWithRootID: function(rootID,cb) { //查询回复详情
         return this
         .find({
             $or: [{
-                _id: RootID
+                _id: rootID
             }, {
-                RootID: RootID
+                rootID: rootID
             }]
         }).sort({
             'meta.createAt': 1 //-1降序，1升序
         }).exec(cb) //回调
     },
-    findByRootId: function(id, cb) {
+    findByRootID: function(id, cb) {
         return this
         .findOne({_id: id})
         .exec(cb)
@@ -83,12 +83,12 @@ CommentSchema.statics = {
             questionID: id
         }, cb)
     },
-    removeComments: function(RootID,cb){//删除评论及其下面的评论
+    removeComments: function(rootID,cb){//删除评论及其下面的评论
         this.remove({
             $or: [{
-                _id: RootID
+                _id: rootID
             }, {
-                RootID: RootID
+                rootID: rootID
             }]
         }, cb)
     }

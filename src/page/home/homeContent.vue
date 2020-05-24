@@ -90,11 +90,11 @@
                                 </div>
                                 <p>{{comment.content}}</p>
                                 <div v-if="!comment.expand" class="buttons">
-                                    <el-button type="info2" icon="star-on" @click="likeComment(index,commentIndex,comment._id)" :class="{selected:comment.likeSelected}">{{comment.like?comment.like:"赞"}}</el-button>
-                                    <el-button type="info2" icon="document" v-show='comment.rootID' @click='openDialogWin(comment.rootID)'>查看对话</el-button>
-                                    <el-button type="info2" @click='comment.expand=true' class="hoverBtn" icon="edit">回复</el-button>
-                                    <el-button type="info2" class="hoverBtn" icon="star-off" @click="dislikeComment(index,commentIndex,comment._id)" :class="[{selected:comment.unlikeSelected}]">{{comment.unlikeSelected?"取消踩":"踩"}}</el-button>
-                                    <el-button type="info2" class="hoverBtn" icon="delete" @click="deleteComment(index,commentIndex,comment._id,item._id)" v-show="comment.userName===userInfo.name&&!comment.rootID">删除</el-button>
+                                    <el-button type="info2" icon="el-icon-star-on" @click="likeComment(index,commentIndex,comment._id)" :class="{selected:comment.likeSelected}">{{comment.like?"赞"+comment.like:"赞"}}</el-button>
+                                    <el-button type="info2" icon="el-icon-document" v-show='comment.rootID' @click='openDialogWin(comment.rootID)'>查看对话</el-button>
+                                    <el-button type="info2" @click='comment.expand=true' class="hoverBtn" icon="el-icon-edit">回复</el-button>
+                                    <el-button type="info2" class="hoverBtn" icon="el-icon-star-off" @click="dislikeComment(index,commentIndex,comment._id)" :class="[{selected:comment.unlikeSelected}]">{{comment.unlikeSelected?"取消踩":"踩"}}</el-button>
+                                    <el-button type="info2" class="hoverBtn" icon="el-icon-delete" @click="deleteComment(index,commentIndex,comment._id,item._id)" v-show="comment.userName===userInfo.name&&!comment.rootID">删除</el-button>
                                 </div>
                                 <div class="replayDiv" :id='comment._id' v-else>
                                     <el-input placeholder="回复" v-model="replayTxt">
@@ -135,6 +135,7 @@
             </el-card>
         </div>
         <ask-question-model
+            v-if="AskDialogVisible"
             :AskDialogVisible="AskDialogVisible"
             @closeAskModel="closeAskModel"
             @addTopic="addTopic"
@@ -142,6 +143,7 @@
             name="askQuestion">
         </ask-question-model>
         <dialog-win-model
+            v-if="dialogWinVisible"
             :rootID="rootID"
             :dialogWinVisible="dialogWinVisible"
             @closeDialogWin="dialogWinVisible=false"
@@ -368,7 +370,6 @@
             },
             //发表评论
             addComment(_id, index) {
-                debugger
                 let $vm = this;
                 let content = $vm.$refs['searchBarValue'+_id][0].value;
                 if (content.trim()==='') {
@@ -390,22 +391,7 @@
                     if (res.data.success) {
                         alert("评论成功！");
                         $vm.commentValue = '';
-                        // 添加一条评论
-                        $vm.ContentItems[index].comment++;
-                        var obj = {};
-                        obj["_id"]=res.data.id;
-                        obj["userImage"]=$vm.userInfo.image;
-                        obj["userName"]=$vm.userInfo.name;
-                        obj["content"]=content;
-                        obj["like"]=0;
-                        obj["dislike"]=0;
-                        obj["createAt"]="刚刚";
-                        obj["rootID"]="";
-                        obj["PName"]="";
-                        obj["expand"]=false;
-                        obj['likeSelected']=false;
-                        obj['unlikeSelected']=false;
-                        $vm.ContentItems[index].comments.push(obj);
+                        $vm.loadComments(index,_id);
                         return;
                     }
                     else{
@@ -472,23 +458,7 @@
                     // 处理成功的结果
                     if (res.data.success) {
                         alert("回复成功！");
-                        $vm.ContentItems[index].comments[commentIndex].expand=false;
-                        // 添加一条评论
-                        var obj={};
-                        obj["_id"]=res.data.id;
-                        obj["userImage"]=this.userInfo.image;
-                        obj["userName"]=this.userInfo.name;
-                        obj["content"]=content;
-                        obj["like"]=0;
-                        obj["dislike"]=0;
-                        obj["createAt"]="刚刚";
-                        obj["rootID"]=rootID;
-                        obj["PName"]=PName;
-                        obj["expand"]=false;
-                        obj['likeSelected']=false;
-                        obj['unlikeSelected']=false;
-                        $vm.ContentItems[index].comments.push(obj);
-                        return;
+                        $vm.loadComments(index,Qid);
                     }
                     else{
                         alert("评论失败，"+res.data.error);
