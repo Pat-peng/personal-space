@@ -11,12 +11,12 @@ function standardComments(comments,res) {
         if(comments[i].PID !== ''){
             for (var j = 0; j < comments.length; j++) {
                 if (comments[i].PID == comments[j]._id) {
-                PEmailPhone=comments[j].emailPhone;
-                break;
+                    PEmailPhone=comments[j].emailPhone;
+                    break;
                 }
             }
         }
-        else{
+        else {
             PEmailPhone='';
         }
         Users.findByIdMuch(comments[i].emailPhone,PEmailPhone,function(err,users) {
@@ -69,7 +69,7 @@ router.get('/comments', function(req, res, next) {
 // http://127.0.0.1:3000/comments/replay?r=598c3e6106ffe54f89928b34
 router.get('/replay', function(req, res, next) {
     var rootID=req.query.r;
-    Comments.fetchWithrootID(rootID,function(err, comments) {
+    Comments.fetchWithRootID(rootID,function(err, comments) {
         if(err) {
             console.log(err);
         }

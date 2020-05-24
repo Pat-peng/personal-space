@@ -135,7 +135,6 @@
             </el-card>
         </div>
         <ask-question-model
-            v-if="AskDialogVisible"
             :AskDialogVisible="AskDialogVisible"
             @closeAskModel="closeAskModel"
             @addTopic="addTopic"
@@ -458,6 +457,7 @@
                     // 处理成功的结果
                     if (res.data.success) {
                         alert("回复成功！");
+                        $vm.replayTxt = '';
                         $vm.loadComments(index,Qid);
                     }
                     else{
