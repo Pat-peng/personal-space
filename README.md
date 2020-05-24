@@ -1,6 +1,6 @@
 # personal-space
 
-## 安装依赖
+### 安装依赖
 ```
 yarn install
 ```
