@@ -8,7 +8,7 @@
                 <a href="#/home">话题</a>
             </div>
             <div class="SearchBar">
-                <el-input class='search' @focus='SearchBarMax' @blur='SearchBarMin' :class="{isFocus:isFocus}" placeholder="搜索你感兴趣的内容..." icon="search" :on-icon-click="searchHandle">
+                <el-input class='search' v-model="searchContent" @focus='SearchBarMax' @blur='SearchBarMin' :class="{isFocus:isFocus}" placeholder="搜索你感兴趣的内容..." icon="search" :on-icon-click="searchHandle">
                 </el-input>
                 <el-button :class="{isFocus:isFocus}" type="primary">提问</el-button>
             </div>
@@ -45,7 +45,8 @@
         name: 'home',
         data() {
             return {
-                isFocus: false
+                isFocus: false,
+                searchContent: ''
             }
         },
         methods: {

@@ -12,7 +12,7 @@
         </div>
         <p>{{comment.content}}</p>
         <div class="buttons">
-          <el-button type="info2" icon="star-on" @click="likeComment(commentIndex,comment._id)" :class="{selected:comment.likeSelected}">{{comment.like?comment.like:"赞"}}</el-button>
+          <el-button type="info2" icon="star-on" @click="likeComment(commentIndex,comment._id)" :class="{selected:comment.likeSelected}">{{comment.like? "赞"+comment.like : "赞"}}</el-button>
            <el-button type="info2" class="hoverBtn" icon="star-off" @click="dislikeComment(commentIndex,comment._id)" :class="[{selected:comment.unlikeSelected}]">{{comment.unlikeSelected?"取消踩":"踩"}}</el-button>
         </div>
       </div>
@@ -38,7 +38,7 @@
     // mounted(){//渲染时加载评论
     //   this.loadComments()
     // },
-    methods:{
+    methods: {
       //对话窗口的关闭
       dialogWinClose:function(){
         this.$emit('closeDialogWin')

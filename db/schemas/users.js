@@ -6,7 +6,7 @@ var UsersSchema = new mongoose.Schema({
     emailPhone: String,
     password: String,
     // sign:'没有最好，只有更好！',
-    // image:'../../../static/images/admin.jpg',
+    // image:'/img/admin.151d6ac8.jpg',
     meta: {
         createAt: {
             type: Date,

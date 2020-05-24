@@ -29,14 +29,7 @@ const routes = [{
     children:[{
         path: '',
         name: 'homeContent',
-        component: import('../page/home/homeContent.vue'),
-        children:[{
-            path: '',
-            components: {
-                askQuestion: import('../components/AskQuestionModel.vue'),
-                dialogWin: import('../components/dialogWin.vue')
-            }
-        }]
+        component: () => import('../page/home/homeContent.vue')
     }]
   }];
 const router = new VueRouter({
