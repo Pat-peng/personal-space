@@ -12,6 +12,7 @@ yarn client
 
 ### 启动数据库（mongoDB）mongodb://localhost/PERSONAL_SPACE
 ```
+sudo mongod
 mongo
 ```
 
