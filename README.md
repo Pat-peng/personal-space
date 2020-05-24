@@ -13,7 +13,7 @@ yarn client
 ### 启动数据库（mongoDB）mongodb://localhost/PERSONAL_SPACE
 ```
 sudo mongod
-mongo
+重启mongo
 ```
 
 ### 新建一个终端窗口，服务端启动 http://localhost:3000/#/
