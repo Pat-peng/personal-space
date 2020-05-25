@@ -577,6 +577,7 @@
             .TopstoryHeader{
                 .el-card__body{
                     overflow: hidden;
+                    font-size: 18px;
                     .askQuestion{
                         float: left;
                         width: 100px;
