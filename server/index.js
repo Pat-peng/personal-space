@@ -1,4 +1,5 @@
 const port = 3000;
+let reqUrl, resUrl;
 var express = require('express');
 // 数据库
 require('../db/index');
@@ -13,8 +14,10 @@ app.listen(port, function (req) {
 })
 
 app.use((req, res, next) => {
+    reqUrl = `http://${host}`;
+    resUrl = `http://${host}`.replace(PORT, '8080');
     // 跨域设置
-    res.header('Access-Control-Allow-Origin', 'http://localhost:8080');
+    res.header('Access-Control-Allow-Origin', resUrl);
     res.header("Access-Control-Allow-Credentials", true);
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.header("Access-Control-Allow-Headers", "Content-Type,Access-Token");
