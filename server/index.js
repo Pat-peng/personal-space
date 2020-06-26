@@ -1,4 +1,4 @@
-const port = 3000;
+const PORT = 3000;
 let reqUrl, resUrl;
 var express = require('express');
 // 数据库
@@ -9,11 +9,12 @@ var questions = require('./routes/questions');
 var comments = require('./routes/comments');
 
 var app = express();
-app.listen(port, function (req) {
+app.listen(PORT, function (req) {
     console.log(req);
 })
 
 app.use((req, res, next) => {
+    let host = req.headers.host;
     reqUrl = `http://${host}`;
     resUrl = `http://${host}`.replace(PORT, '8080');
     // 跨域设置
